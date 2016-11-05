@@ -24,9 +24,10 @@ var config = {
   production: {
     root: rootPath,
     app: {
-        name: 'express1'
+      name: 'perscription-hasher'
     },
-    port: process.env.port,
+    port: process.env.PORT || 3000,
+    db: 'mongodb://localhost/perscription-hasher-production'
   }
 };
 
