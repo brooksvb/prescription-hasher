@@ -1,11 +1,13 @@
 var express = require('express'),
   router = express.Router(),
+  app = express(),
   Article = require('../models/article');
 
 var bodyParser = require('body-parser');
 var multer = require('multer'); // v1.0.5
 var upload = multer(); // for parsing multipart/form-data
 
+app.use(express.static(__dirname + '/public'));
 
 var firebase = require('firebase');
 
@@ -68,44 +70,67 @@ router.get('/', function (req, res, next) {
     });
 });
 
-router.post('/new_submission', upload.array(), function (req, res, next) {
+/*router.get('/new_entry', function(req, res) {
+
+  res.render('index.html');
+
+}); */
+
+router.post('/new_entry', upload.array(), function (req, res, next) {
+
   // Extract form data
   var data = req.body;
+  var message = 'ERROR: The message was never updated.';
 
-  if (!(user in data && contact in data && firstname in data && lastname in data && dob in data && age in data && gender in data && drug in data)) {
+  console.log(data);
+  console.log('before data check.');
+
+  /*
+  if (!(user in data && contact in data && firstname in data && lastname in data && dob in data && gender in data && drug in data)) {
+    console.log('data was missing?');
     res.send('<h3 id="response">ERROR: Not all parameters were present.</h3>');
   }
+  */
 
+  console.log('We are before the hash.');
   // Hash the data
   var new_hash = hasher(data);
 
+  console.log('new_hash: ' + new_hash);
 
   // Check if hash exists
   hashref.child(new_hash).once('value').then(function(snapshot) {
+    console.log('in db access: ' + snapshot);
+    console.log(snapshot.val());
     if (snapshot.val() !== null) {
+      console.log('snapshot isnt null');
       // Report that hash exists
-      var return_html = '';
 
-      return_html += '<div id="response"><h2>Collision detected:</h2>' +
-        '<h1>Details of Collision:</h1>' +
-        '<p>Collided entry was entered by: ' + snapshot.val().user + '.</p>' +
-        '<p>Date of entry: ' + snapshot.val().date + '</p>' +
-        '<p>Contact information for their office: ' + snapshot.val().contact + '</p>' +
-        '<p>Please contact the office to confirm this duplicate perscription.</p></div>';
+      var return_html = '<h2><strong>Collision detected!</strong></h2>' +
+        '<h2>Details of Collision:</h2>' +
+        '<p><strong>Collided entry was entered by:</strong> Dr. ' + snapshot.val().user + '</p>' +
+        '<p><strong>Date of entry:</strong> ' + snapshot.val().date + '</p>' +
+        '<p><strong>Contact information for their office:</strong> ' + snapshot.val().contact + '</p>' +
+        '<p>Please contact the office to confirm this duplicate perscription.</p>';
 
-      res.send(return_html);
+      res.send({message: return_html});
 
     } else {
+      console.log('snapshot is null');
+      var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
       var d = new Date();
-      var date = d.getDate() + ' ' + d.getMonth() + ', ' + d.getFullYear(); 
+      var date = monthNames[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+      console.log('date: ' + date);
       // Add hash to db
+      console.log(data.user);
       hashref.child(new_hash).set({
-        doctor: data.user,
-        date: data.date,
+        user: data.user,
+        date: date,
         contact: data.contact
       });
 
-      res.send('<div id="response"><h3>Successfully recorded entry without collisions.</h3></div>');
+      res.send({message: '<h3>Successfully recorded entry without collisions.</h3>'});
     }
 
   });  // End of db call
@@ -130,7 +155,7 @@ function mini_hash(string) {
   Returns a hashed string of characters from a data object
 */
 function hasher(data) {
-  var pre_string = data.lastname + data.firstname + data.age + data.gender + data.dob + data.drug;
+  var pre_string = data.lastname + data.firstname + data.gender + data.dob + data.drug;
   var hash = '', curr_str;
 
   // Increment 5 characters at a time

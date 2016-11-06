@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Perscription Hasher</title>
+	<link rel="stylesheet" href="css/style.css"></link>
+	<link rel="stylesheet" href="css/jquery-ui.min.css"></link>
+	<link rel="stylesheet" href="css/jquery-ui.structure.css"></link>
+	<link rel="stylesheet" href="css/jquery-ui.theme.css"></link>
+	<link href="https://fonts.googleapis.com/css?family=Bree+Serif|Crimson+Text" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+</head>
+<body style="background-image:url(img/background.jpg)">
+<div id="main">
+	<img id="logo" src="img/logo.png">
+	<h1> Perscription Hasher </h1>
+
+ 	<nav>
+		<a class="button">Home</a>
+		<a class="button">About</a>
+		<a class="button active">New Entry</a>
+	</nav>
+
+</div>
+
+
+<form>
+	<h3>New Entry</h3>
+	Perscribing Doctor:
+	<input id="doctor" type="text" name="doctorname">
+	<br>
+	Contact Number for Your Office:
+	<input id="contact" type="text" name="contact">
+	<br>
+	<hr>
+
+  Patient First Name:
+  <input class="fname" type="text" name="firstname">
+  Patient Last Name:
+  <input class="lname" type="text" name="lastname">
+  <br>
+
+	Gender of Patient:
+  <div id="radio-div">
+		<input type="radio" name="gender" value="male"> Male<br>
+  	<input type="radio" name="gender" value="female"> Female<br>
+  	<input type="radio" name="gender" value="other"> Other <br>
+  </div>
+
+  <div class="">
+		Date of Birth:
+		<input type="text" id="datepicker" />
+  </div>
+
+	Perscription:
+  <select name="DRUGS" class="select-drug">
+	  <option value="Hydrocodone">Hydrocodone </option>
+	  <option value="Generic Zocor">Generic Zocor</option>
+	  <option value="Lisinopril">Lisinopril</option>
+	  <option value="Generic Synthroid">Generic Synthroid</option>
+    <option value="Azithromycin">Azithromycin</option>
+		<option value="Isotretinoin">Isotretinoin</option>
+	</select>
+	<br><br>
+  <input id="submitForm" type="button" value="Submit">
+</form>
+
+<div id="response"></div>
+
+
+
+<script type="text/javascript" src="JS/common.js"></script>
+</body>
+</html>
