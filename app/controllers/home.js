@@ -97,7 +97,7 @@ router.post('/new_submission', upload.array(), function (req, res, next) {
 
     } else {
       var d = new Date();
-      var date = d.
+      var date = d.getDate() + ' ' + d.getMonth() + ', ' + d.getFullYear(); 
       // Add hash to db
       hashref.child(new_hash).set({
         doctor: data.user,
