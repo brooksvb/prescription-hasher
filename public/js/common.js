@@ -28,7 +28,15 @@ $(document).ready(function() {
     });
   });
 
+  $('#clear').on('click', function(){
+    clearFields();
+  });
+
 });
+
+function clearFields() {
+  location.reload();
+}
 
 function updateResponse(response) {
   $('#response').css('visibility', 'visible');
