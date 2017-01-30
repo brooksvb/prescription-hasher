@@ -12,7 +12,7 @@ app.use(express.static(__dirname + '/public'));
 var firebase = require('firebase');
 
 firebase.initializeApp({
-  apiKey: "AIzaSyDOZHZ3wkAtU3WwNmjD0MD816b-L0BQ0qo",
+  apiKey: process.env.FIREBASE_KEY,
   authDomain: "perscription-hasher.firebaseapp.com",
   databaseURL: "https://perscription-hasher.firebaseio.com",
   storageBucket: "",
