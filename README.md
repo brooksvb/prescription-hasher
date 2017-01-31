@@ -12,16 +12,7 @@ Throughout this process, the identifying information for any patient is never st
 
 The app's structure utilizes a POST request to make a new entry to the database and check if it exists. This allows for the app to be utilized as an API in the future, and the process of checking new prescriptions can be automated in the background.
 
-## Challenges I ran into
-The backend.
-
-## Accomplishments that I'm proud of
-Finally getting the backend to work.
-
-## What I learned
-Learned how to set up a node.js app on Microsoft Azure.
-
-## What's next for Prescription Hasher
+## Future development
 Future features would include:
 - Ability to log in (inaccessible to public)
 - Entries expire when the prescription can be refilled
@@ -32,7 +23,7 @@ Future features would include:
 
 #Try it
 The app is live [here.](http://prescription-hasher.azurewebsites.net/new_entry.html)
-Please note that the site is not fully functional, and is simply a proof of concept that allows you to submit entries, and it will tell you if you encounter a collision.
+Please note that the site is not fully functional, and is simply a proof of concept that allows you to submit entries, and it will tell you if you submitted safely or encountered a collision. The easiest way to test the collision event is to press submit twice (with the same data).
 
 Credit to collaborators Sunaina Shashikumar, and Ahmed Sayed.
 
